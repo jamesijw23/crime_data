@@ -1,0 +1,60 @@
+##--------------------------------------
+## Name: findCounty
+## Input: city_county
+## Output: County where incident took place
+## Purpose: Provide the county of this column
+## Improvements:
+## a) Use Coordinates to determine the city
+##-------------------------------------- 
+
+findCounty= function(city_county){
+  ## Ways to write out county based on data
+  possible_county = c('County', '(county)')
+  ## Check to see if it is a conunty
+  cond1 = grep(paste(possible_county,collapse="|"), city_county, value=TRUE)
+  if(length(cond1)>0){
+  ## Remove County From name
+  county_name = sub('County|\\(county\\)','',cond1)
+  } else {
+    county_name =''
+  }
+  ## Remove Space
+  county_name = trimws(county_name, which="right")
+  
+ return(county_name)   
+}
+
+
+##--------------------------------------
+## Name: findCity
+## Input: city_county
+## Output: city
+## Purpose: Provide the city of this column
+## Improvements:
+## a) Check if city is in US based on another excel sheet
+## b) Determine the county  based on city and State
+## c) If a city is not in excel sheet use Coordinates to determine
+## the city, county and state
+##-------------------------------------- 
+findCity= function(city_county){
+  ## Ways to write out county based on data
+  possible_county = c('County', '(county)')
+  ## Check to see if it is a conunty
+  cond1 = grep(paste(possible_county,collapse="|"), city_county, value=TRUE)
+  if(length(cond1) == 0){
+    ## Remove County From name
+    city_name = city_county
+  } else {
+    city_name =''
+  }
+  ## Remove Space
+  city_name = trimws(city_name, which="right")
+  return(city_name)   
+}
+
+
+
+
+
+
+
