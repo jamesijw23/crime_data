@@ -4,7 +4,7 @@ library(dplyr)
 ##---------------------------------------------
 ## 1) Load-In Data
 ##---------------------------------------------
-setwd("C:/Users/iwilli11/Desktop/CrimeData/Data")
+setwd("C:/Users/iwilli11/Desktop/Algorithms/Data/crime_csv")
 gun_data = read.csv('gun-violence-data_01-2013_03-2018.csv')
 us_info = read.csv('us_city_state_county.csv')
 
