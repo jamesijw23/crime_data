@@ -55,6 +55,18 @@ findCity= function(city_county){
 
 
 
-
-
+##--------------------------------------
+## Name: findNumberGuns
+## Input: If Gun was stolen
+## Output: Number of Guns
+## Purpose: Find number of Guns 
+## Improvements:
+## a) 
+##--------------------------------------
+findNumberGuns = function(i){
+  guns_stole_type = unlist(strsplit(as.character(gun_data_mod1$gun_stolen[i]),
+                                    split="[||]"))
+  number_of_guns = length(guns_stole_type[guns_stole_type != ""])
+  return(number_of_guns)
+}
 
