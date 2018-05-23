@@ -92,6 +92,15 @@ gun_stolen_mat = as.matrix(as.character(gun_data_mod1$gun_stolen))
 gun_data_mod1$number_guns = apply(gun_stolen_mat , 1,findNumberGuns)
 
 
+## Start Here
+##Check to see if one of these words in are string of vector
+possible_gunstolen = c('Not-stolen','Stolen','Unknown')
+
+
+x = gun_data_mod1$gun_stolen[96]
+unlist(strsplit(as.character(x),split="[||]"))
+
+
 
 ##----------------------------------------------
 ## [10] "gun_stolen"    
