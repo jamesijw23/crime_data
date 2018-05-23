@@ -84,12 +84,14 @@ nrow(gun_data_mod1) - sum(!is.na(gun_data_mod1$congressional_district))
 
 
 
-##**
-## h. gun_stolen
-##**
+##----------------------------------------------
+##  c. Change "gun_stolen" into number of guns
+## Status --> DONE
+##----------------------------------------------
+gun_stolen_mat = as.matrix(as.character(gun_data_mod1$gun_stolen))
+gun_data_mod1$number_guns = apply(gun_stolen_mat , 1,findNumberGuns)
 
 
-gun_data_mod1$number_guns = apply(gun_data_mod1$gun_stolen, 1,findNumberGuns)
 
 ##----------------------------------------------
 ## [10] "gun_stolen"    
