@@ -1,6 +1,7 @@
 
 
 library(dplyr)
+library(stringr)
 ##---------------------------------------------
 ## 1) Load-In Data
 ##---------------------------------------------
@@ -76,10 +77,11 @@ nrow(gun_data_mod1) == sum(!is.na(gun_data_mod1$n_injured))
 ## NOTE: Just a geo-code
 ## Improvement: 
 ## a) Find out the congressional_district based on
-## other rows that share same city and/or county
+## other rows that share same city and/or county 
+## that are missing
 ##----------------------------------------------
 table(gun_data_mod1$congressional_district)
-nrow(gun_data_mod1) - sum(!is.na(gun_data_mod1$congressional_district))
+sum(is.na(gun_data_mod1$congressional_district))
 
 
 
@@ -97,11 +99,13 @@ gun_data_mod1$number_guns = apply(gun_stolen_mat , 1,findNumberGuns)
 possible_gunstolen = c('Not-stolen','Stolen','Unknown')
 
 
-x = gun_data_mod1$gun_stolen[96]
-unlist(strsplit(as.character(x),split="[||]"))
-
-
-
+elements_inside_vector = function(x){
+  string1 = gun_data_mod1$gun_stolen[x]
+  make_vector = unlist(strsplit(as.character(string1),split="[||]"))
+  remove_colons = str_replace(make_vector,"::","")
+  remove_number = gsub('[0-9]+', '', remove_colons)
+  return(remove_number)
+}
 ##----------------------------------------------
 ## [10] "gun_stolen"    
 ##----------------------------------------------
