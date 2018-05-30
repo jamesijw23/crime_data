@@ -85,3 +85,19 @@ remove_colons_numbers = function(string1){
   remove_number = gsub('[0-9]+', '', remove_colons)
   return(remove_number)
 }
+
+##--------------------------------------
+## Name: stolen_gun_status_function
+## Input: string1 --> row in df (a string)
+## Output:  If a gun is involved
+## Purpose: State whether stolen gun is involved
+## Improvements:
+## a) 
+##--------------------------------------
+stolen_gun_status_function = function(string1){
+  check_gun_status = c(":Stolen|Stolen")
+  list_strings = remove_colons_numbers(string1) 
+  result = sum(str_detect(list_strings,check_gun_status))
+  result = ifelse(result>0,T,F)
+  return(result)
+}
