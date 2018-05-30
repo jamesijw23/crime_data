@@ -13,8 +13,10 @@ us_info = read.csv('us_city_state_county.csv')
 ##---------------------------------------------
 ## 2) Analyze each column and Transform Based on need
 ##---------------------------------------------
-
-## Remove useless Columns: notes, sources and urls
+##----------------------------------------------
+## 2.1 Remove useless Columns: notes, sources and urls
+## Status --> Good
+##----------------------------------------------
 gun_data_mod1 = gun_data %>% select(-incident_url,
                                     -source_url,
                                     -sources,
@@ -23,20 +25,20 @@ gun_data_mod1 = gun_data %>% select(-incident_url,
 
 
 ##----------------------------------------------
-##  a. Verify Ids are all unique and every row has an id 
+##  2.2. Verify Ids are all unique and every row has an id 
 ## Status --> TRUE
 ##----------------------------------------------
 nrow(gun_data_mod1) == length(unique(gun_data_mod1$incident_id))
 
 
 ##----------------------------------------------
-## b. Change date into a date variable
+## 2.3. Change date into a date variable
 ## Status --> DONE
 ##----------------------------------------------
 gun_data_mod1$date <- as.Date(gun_data_mod1$date)
 
 ##----------------------------------------------
-##  c. Change "city_or_county" into two columns city and county 
+## 2.4 Change "city_or_county" into two columns city and county 
 ## Status --> DONE
 ##----------------------------------------------
 gun_data_mod1 = gun_data_mod1 %>%
@@ -46,12 +48,12 @@ gun_data_mod1 = gun_data_mod1 %>%
 
 
 ##----------------------------------------------
-## d. Nothing to currently to do with address
+## 2.5 Nothing to currently to do with address
 ## Status --> No Update
 ##----------------------------------------------
 
 ##----------------------------------------------
-## e. View "n_killed"
+## 2.6 View "n_killed"
 ## Status --> No NA
 ## NOTE: Could be dependent variable
 ##----------------------------------------------
@@ -61,7 +63,7 @@ nrow(gun_data_mod1) == sum(!is.na(gun_data_mod1$n_killed))
 
 
 ##----------------------------------------------
-## f. View "n_injured"
+## 2.7 View "n_injured"
 ## Status --> No NA
 ## NOTE: Could be dependent variable
 ##----------------------------------------------
@@ -72,7 +74,7 @@ nrow(gun_data_mod1) == sum(!is.na(gun_data_mod1$n_injured))
 
 
 ##----------------------------------------------
-## g. View "congressional_district"
+## 2.8 View "congressional_district"
 ## Status --> 11944 NAs
 ## NOTE: Just a geo-code
 ## Improvement: 
@@ -86,26 +88,37 @@ sum(is.na(gun_data_mod1$congressional_district))
 
 
 
-##----------------------------------------------
-##  c. Change "gun_stolen" into number of guns
+##-----------------
+## 2.9a Change "gun_stolen" into number of guns
 ## Status --> DONE
-##----------------------------------------------
+##------------------
 gun_stolen_mat = as.matrix(as.character(gun_data_mod1$gun_stolen))
 gun_data_mod1$number_guns = apply(gun_stolen_mat , 1,findNumberGuns)
 
 
-## Start Here
-##Check to see if one of these words in are string of vector
-possible_gunstolen = c('Not-stolen','Stolen','Unknown')
 
 
-elements_inside_vector = function(x){
-  string1 = gun_data_mod1$gun_stolen[x]
-  make_vector = unlist(strsplit(as.character(string1),split="[||]"))
-  remove_colons = str_replace(make_vector,"::","")
-  remove_number = gsub('[0-9]+', '', remove_colons)
-  return(remove_number)
-}
+##-----------------
+## 2.9b If a gun involved was stolen
+## Status --> DONE
+##-----------------
+
+
+gun_data_mod1$stolen_gun_status = apply(as.matrix(gun_data_mod1$gun_stolen), 1,
+      stolen_gun_status_function)
+
+
+##-----------------
+## 2.9c If a gun involved was not stolen
+## Status --> DONE
+##-----------------
+
+
+gun_data_mod1$not_stolen_gun_status = apply(as.matrix(gun_data_mod1$gun_stolen), 1,
+                                        not_stolen_gun_status_function)
+
+
+
 ##----------------------------------------------
 ## [10] "gun_stolen"    
 ##----------------------------------------------
