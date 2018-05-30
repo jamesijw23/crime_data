@@ -63,9 +63,25 @@ findCity= function(city_county){
 ## Improvements:
 ## a) 
 ##--------------------------------------
-findNumberGuns = function(x,i){
-  guns_stole_type = unlist(strsplit(as.character(x[i]),split="[||]"))
+findNumberGuns = function(x){
+  guns_stole_type = unlist(strsplit(as.character(x),split="[||]"))
   number_of_guns = length(guns_stole_type[guns_stole_type != ""])
   return(number_of_guns)
 }
 
+
+##--------------------------------------
+## Name: remove_colons_numbers 
+## Input: string1 --> row in df (a string)
+## Output:  a list of stings
+## Purpose: Remove colons and numbers from strings
+## Improvements:
+## a) 
+##--------------------------------------
+remove_colons_numbers = function(string1){
+  colons <- c("::|:::")
+  make_vector = unlist(strsplit(as.character(string1),split="[||]"))
+  remove_colons = str_replace(make_vector,colons ,"")
+  remove_number = gsub('[0-9]+', '', remove_colons)
+  return(remove_number)
+}
