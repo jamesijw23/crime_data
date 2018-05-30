@@ -89,13 +89,29 @@ remove_colons_numbers = function(string1){
 ##--------------------------------------
 ## Name: stolen_gun_status_function
 ## Input: string1 --> row in df (a string)
-## Output:  If a gun is involved
+## Output:  T/F If a stolen gun is involved
 ## Purpose: State whether stolen gun is involved
 ## Improvements:
 ## a) 
 ##--------------------------------------
 stolen_gun_status_function = function(string1){
   check_gun_status = c(":Stolen|Stolen")
+  list_strings = remove_colons_numbers(string1) 
+  result = sum(str_detect(list_strings,check_gun_status))
+  result = ifelse(result>0,T,F)
+  return(result)
+}
+
+##--------------------------------------
+## Name: stolen_gun_status_function
+## Input: string1 --> row in df (a string)
+## Output:  T/F If Not stolen gun is involved
+## Purpose: State whether not stolen gun is involved
+## Improvements:
+## a) 
+##--------------------------------------
+not_stolen_gun_status_function = function(string1){
+  check_gun_status = c(":Not Stolen|Not Stolen")
   list_strings = remove_colons_numbers(string1) 
   result = sum(str_detect(list_strings,check_gun_status))
   result = ifelse(result>0,T,F)
