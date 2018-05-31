@@ -119,13 +119,19 @@ gun_data_mod1$not_stolen_gun_status = apply(as.matrix(gun_data_mod1$gun_stolen),
 
 
 
-##----------------------------------------------
-## [10] "gun_stolen"    
-##----------------------------------------------
 
 ##----------------------------------------------
-## [11] "gun_type"                   
+## 2.10 "gun_type"                   
 ##----------------------------------------------
+v = gun_data_mod1$gun_type
+d = str_replace_all(unlist(lapply(v,remove_colons_numbers))," ", "" )
+n = table(d)
+
+##-----------------
+## 2.10a If the gun that is involved extremely deadly
+## More than 6 bullets in a round
+## Status --> DONE
+##-----------------
 
 ##----------------------------------------------
 ## [12] "incident_characteristics"   
