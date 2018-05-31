@@ -130,12 +130,35 @@ n = table(d)
 ##-----------------
 ## 2.10a If the gun that is involved extremely deadly
 ## More than 6 bullets in a round Feed system
-## Status --> 
+## Status --> (Need to Do)
 ##-----------------
 
+
 ##----------------------------------------------
-## [12] "incident_characteristics"   
+## 2.11 "incident_characteristics"   
 ##----------------------------------------------
+v = gun_data_mod1$incident_characteristics
+
+
+
+##-----------------
+## 2.11a is a Mass Shooting or not
+## Status --> Done
+##-----------------
+ms_check = c("Mass Shooting|mass shooting|Mass shooting|mass Shooting")
+gun_data_mod1$is_mass_shooting = str_detect(v,ms_check)
+gun_data_mod1$is_mass_shooting = ifelse(gun_data_mod1$is_mass_shooting ==T,1,0)
+
+
+
+##-----------------
+## 2.11b is a gang involved or not
+## Status --> Done
+##-----------------
+gang_check = c("gang|Gang")
+gun_data_mod1$is_gang_related = str_detect(v,gang_check)
+gun_data_mod1$is_gang_related = ifelse(gun_data_mod1$is_gang_related ==T,1,0)
+
 
 ##----------------------------------------------
 ## [13] "latitude"                   
