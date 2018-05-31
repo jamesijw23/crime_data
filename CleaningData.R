@@ -129,8 +129,8 @@ n = table(d)
 
 ##-----------------
 ## 2.10a If the gun that is involved extremely deadly
-## More than 6 bullets in a round
-## Status --> DONE
+## More than 6 bullets in a round Feed system
+## Status --> 
 ##-----------------
 
 ##----------------------------------------------
