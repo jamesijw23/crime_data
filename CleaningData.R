@@ -41,10 +41,8 @@ gun_data_mod1$date <- as.Date(gun_data_mod1$date)
 ## 2.4 Change "city_or_county" into two columns city and county 
 ## Status --> DONE
 ##----------------------------------------------
-gun_data_mod1 = gun_data_mod1 %>%
-  mutate(county = apply(as.matrix(gun_data_mod1$city_or_county),1,findCounty))
-gun_data_mod1 = gun_data_mod1 %>%
-  mutate(city = apply(as.matrix(gun_data_mod1$city_or_county),1,findCity))
+gun_data_mod1$county = apply(as.matrix(gun_data_mod1$city_or_county),1,findCounty)
+gun_data_mod1$city  = apply(as.matrix(gun_data_mod1$city_or_county),1,findCity)
 
 
 ##----------------------------------------------
@@ -161,17 +159,19 @@ gun_data_mod1$is_gang_related = ifelse(gun_data_mod1$is_gang_related ==T,1,0)
 
 
 ##----------------------------------------------
-## [13] "latitude"                   
+## [13] "latitude"     
+## Note: 7923 rows do not have a latitude coordinate
 ##----------------------------------------------
-
+sum(is.na(gun_data_mod1$latitude)) 
 ##----------------------------------------------
 ## [14] "location_description"       
 ##----------------------------------------------
 
 ##----------------------------------------------
 ## [15] "longitude"                  
+## Note: 7923 rows do not have a latitude coordinate
 ##----------------------------------------------
-
+sum(is.na(gun_data_mod1$longitude)) 
 ##----------------------------------------------
 ## [16] "n_guns_involved"            
 ##----------------------------------------------
