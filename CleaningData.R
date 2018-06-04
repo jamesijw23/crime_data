@@ -166,12 +166,21 @@ sum(is.na(gun_data_mod1$latitude))
 ##----------------------------------------------
 ## [14] "location_description"       
 ##----------------------------------------------
+club_check = c("club|Club")
+gun_data_mod1$at_club = str_detect(v,club_check)
+gun_data_mod1$at_club = ifelse(gun_data_mod1$at_club  ==T,1,0)
+
+
+
 
 ##----------------------------------------------
 ## [15] "longitude"                  
-## Note: 7923 rows do not have a latitude coordinate
+## Note: 7923 rows do not have a longitude coordinate
+## Same rows are missin for longitude as latitude
 ##----------------------------------------------
 sum(is.na(gun_data_mod1$longitude)) 
+sum(is.na(gun_data_mod1$latitude) == is.na(gun_data_mod1$longitude))
+nrow(gun_data_mod1)
 ##----------------------------------------------
 ## [16] "n_guns_involved"            
 ##----------------------------------------------
