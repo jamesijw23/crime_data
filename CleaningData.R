@@ -158,35 +158,64 @@ gun_data_mod1$is_gang_related = str_detect(v,gang_check)
 gun_data_mod1$is_gang_related = ifelse(gun_data_mod1$is_gang_related ==T,1,0)
 
 
+##-----------------
+## 2.11c location at a club
+## Status --> Done
+##-----------------
+club_check = c("club|Club")
+gun_data_mod1$at_club = str_detect(v,club_check)
+gun_data_mod1$at_club= ifelse(gun_data_mod1$at_club ==T,1,0)
+
+
+
+
+
 ##----------------------------------------------
-## [13] "latitude"     
+## 2.12 "latitude"     
 ## Note: 7923 rows do not have a latitude coordinate
 ##----------------------------------------------
 sum(is.na(gun_data_mod1$latitude)) 
-##----------------------------------------------
-## [14] "location_description"       
-##----------------------------------------------
-club_check = c("club|Club")
-gun_data_mod1$at_club = str_detect(v,club_check)
-gun_data_mod1$at_club = ifelse(gun_data_mod1$at_club  ==T,1,0)
-
-
-
 
 ##----------------------------------------------
-## [15] "longitude"                  
+## 2.13 "location_description"       
+##----------------------------------------------
+
+##-----------------
+## 2.13a Location is at an apartment
+## Status --> Done
+##-----------------
+v = gun_data_mod1$location_description
+apart_check = c("Apartments")
+gun_data_mod1$at_apartment = str_detect(v,apart_check)
+gun_data_mod1$at_apartment = ifelse(gun_data_mod1$at_apartment  ==T,1,0)
+
+
+
+
+
+##----------------------------------------------
+## 2.14 "longitude"                  
 ## Note: 7923 rows do not have a longitude coordinate
 ## Same rows are missin for longitude as latitude
 ##----------------------------------------------
 sum(is.na(gun_data_mod1$longitude)) 
 sum(is.na(gun_data_mod1$latitude) == is.na(gun_data_mod1$longitude))
 nrow(gun_data_mod1)
-##----------------------------------------------
-## [16] "n_guns_involved"            
-##----------------------------------------------
+
+
 
 ##----------------------------------------------
-## [17] "participant_age"            
+## 2.15 "n_guns_involved"  
+## Note: there is a discrepency between guns derive data and column
+##----------------------------------------------
+df_num_guns = data.frame(table(gun_data_mod1$n_guns_involved,
+                              gun_data_mod1$number_guns))
+
+df_num_guns[df_num_guns$Freq > 0,]
+
+
+##----------------------------------------------
+## 2.16 "participant_age"            
 ##----------------------------------------------
 
 ##----------------------------------------------
