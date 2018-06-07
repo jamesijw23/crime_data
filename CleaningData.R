@@ -217,16 +217,12 @@ df_num_guns[df_num_guns$Freq > 0,]
 ##----------------------------------------------
 ## 2.16 "participant_age"            
 ##----------------------------------------------
-strings = gun_data_mod1$participant_age[3]
+strings = as.matrix(gun_data_mod1$participant_age)
+child_involved = apply(strings, 1, children_involved)
+gun_data_mod1$child_involved = child_involved
 
-children_involved = function(strings){
-  tmp_list_str = unlist(strsplit(as.character(strings),split="[||]"))
-  age_strs = str_replace(tmp_list_str,"\\d::","")
-  ages = as.numeric(age_strs[age_strs!=""])
-  child_less18 = ifelse(sum(ages<18)>0,1,0)
-  return(child_less18)
-}
-
+d = which(is.na(gun_data_mod1$child_involved))
+strings[d]
 
 ##----------------------------------------------
 ## [18] "participant_age_group"      
