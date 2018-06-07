@@ -117,3 +117,21 @@ not_stolen_gun_status_function = function(string1){
   result = ifelse(result>0,T,F)
   return(result)
 }
+
+
+
+##--------------------------------------
+## Name: children_involved
+## Input: strings --> row in df (a string)
+## Output:  T/F If child less than 18 is involved
+## Purpose: State whether children is involved
+## Improvements:
+## a) 
+##--------------------------------------
+children_involved = function(strings){
+  tmp_list_str = unlist(strsplit(as.character(strings),split="[||]"))
+  age_strs = str_replace(tmp_list_str,"\\d::","")
+  ages = as.numeric(age_strs[age_strs!=""])
+  child_less18 = ifelse(sum(ages<18)>0,T,F)
+  return(child_less18)
+}
