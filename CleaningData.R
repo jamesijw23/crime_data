@@ -103,7 +103,7 @@ gun_data_mod1$number_guns = apply(gun_stolen_mat , 1,findNumberGuns)
 
 
 gun_data_mod1$stolen_gun_status = apply(as.matrix(gun_data_mod1$gun_stolen), 1,
-      stolen_gun_status_function)
+                                        stolen_gun_status_function)
 
 
 ##-----------------
@@ -113,7 +113,7 @@ gun_data_mod1$stolen_gun_status = apply(as.matrix(gun_data_mod1$gun_stolen), 1,
 
 
 gun_data_mod1$not_stolen_gun_status = apply(as.matrix(gun_data_mod1$gun_stolen), 1,
-                                        not_stolen_gun_status_function)
+                                            not_stolen_gun_status_function)
 
 
 
@@ -209,7 +209,7 @@ nrow(gun_data_mod1)
 ## Note: there is a discrepency between guns derive data and column
 ##----------------------------------------------
 df_num_guns = data.frame(table(gun_data_mod1$n_guns_involved,
-                              gun_data_mod1$number_guns))
+                               gun_data_mod1$number_guns))
 
 df_num_guns[df_num_guns$Freq > 0,]
 
@@ -217,6 +217,16 @@ df_num_guns[df_num_guns$Freq > 0,]
 ##----------------------------------------------
 ## 2.16 "participant_age"            
 ##----------------------------------------------
+strings = gun_data_mod1$participant_age[3]
+
+children_involved = function(strings){
+  tmp_list_str = unlist(strsplit(as.character(strings),split="[||]"))
+  age_strs = str_replace(tmp_list_str,"\\d::","")
+  ages = as.numeric(age_strs[age_strs!=""])
+  child_less18 = ifelse(sum(ages<18)>0,1,0)
+  return(child_less18)
+}
+
 
 ##----------------------------------------------
 ## [18] "participant_age_group"      
